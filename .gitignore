@@ -1,8 +1,12 @@
 # Byte-compiled / optimized / DLL files
 __pycache__
 
+# ide files (pycharm)
+.idea
+
 # virtualenv
 myenv
 
-# output folder
+# input and output folders
+input
 output
