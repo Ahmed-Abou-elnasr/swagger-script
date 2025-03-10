@@ -1,0 +1,3747 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Backoffice Product Master Service Documentation.",
+        "description": "Back Office Product master service. This service is concerned with handling lovs and system parameters.",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8088/product-master",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/v1/term-deposit-rates/channel-rate-rules/{channelRateRuleId}": {
+            "put": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Updates an existing channel rate rule",
+                "description": "Updates an existing channel rate rule.",
+                "operationId": "editChannelRateRule",
+                "parameters": [
+                    {
+                        "name": "channelRateRuleId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "maximum": 2147483647,
+                            "minimum": 0,
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChannelRateRuleEditResource"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules": {
+            "get": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Fetch all channel rate rules",
+                "description": "Retrieves all channel rate rules available in the system.",
+                "operationId": "getAllChannelRateRules",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/ChannelRateRuleViewResource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ChannelRateRulesInqAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Create a new channel rate rule",
+                "operationId": "createChannelRateRule",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChannelRateRuleCreateResource"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/update-and-approve": {
+            "post": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Update and approve a pending channel rate rule request",
+                "description": "Updates and approves a pending channel rate rule request.",
+                "operationId": "updateAndApprovePendingChannelRateRule",
+                "parameters": [
+                    {
+                        "name": "pendingTdId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PendingChannelRateRuleUpdateAndApproveResource"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/route-to-maker": {
+            "post": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Route a pending channel rate rule to the maker",
+                "operationId": "routeToMakerChannelRateRule",
+                "parameters": [
+                    {
+                        "name": "pendingTdId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PendingChannelRateRuleRouteToMakerResource"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/reject": {
+            "post": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Reject a pending channel rate rule",
+                "operationId": "rejectPendingChannelRateRuleRequest",
+                "parameters": [
+                    {
+                        "name": "pendingTdId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PendingChannelRateRuleRejectResource"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/approve": {
+            "post": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Approve a pending channel rate rule",
+                "operationId": "approvePendingChannelRateRuleRequest",
+                "parameters": [
+                    {
+                        "name": "pendingTdId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/pending/{pendingId}/reject": {
+            "post": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "pending parameter data reject",
+                "operationId": "rejectPendingParametersInformation",
+                "parameters": [
+                    {
+                        "name": "pendingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/pending/{pendingId}/approve": {
+            "post": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "pending parameter data approve]",
+                "operationId": "approvePendingParametersInformation",
+                "parameters": [
+                    {
+                        "name": "pendingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/manage": {
+            "post": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "parameter data manage[create,delete,update]",
+                "operationId": "initiateCreateDeleteUpdateSystemParametersInformation",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SystemParameterManageMakerResourceCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions": {
+            "get": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Fetch history of pending channel rate rule actions",
+                "description": "Fetches pending channel rate rule actions history based on approval status and other filters.",
+                "operationId": "getPendingChannelRateRuleActionsHistory",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PendingChannelRateRuleHistoryResource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PendingChannelRateRulesListAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingRequestId}": {
+            "get": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Get pending channel rate rule action details",
+                "operationId": "getPendingChannelRateRuleDetails",
+                "parameters": [
+                    {
+                        "name": "pendingRequestId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PendingChannelRateRuleDetails"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/term-deposit-rates/channel-rate-rules/pending-actions/inbox": {
+            "get": {
+                "tags": [
+                    "Channel Rate Rules"
+                ],
+                "summary": "Get pending channel rate rule actions (inbox)",
+                "operationId": "getPendingChannelRateRuleActionsInbox",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PendingChannelRateRuleInboxResource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PendingChannelRateRulesListAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/profile/pending": {
+            "get": {
+                "tags": [
+                    "Profile Manage"
+                ],
+                "operationId": "getProfilePendingData",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/ProfilePendingDataResource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfilePendingDataAPIResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/lov/{lovCode}": {
+            "get": {
+                "tags": [
+                    "lovs inquiry"
+                ],
+                "summary": "Get Skeleton Details",
+                "operationId": "lovInquiryController",
+                "parameters": [
+                    {
+                        "name": "lovCode",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "request",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/LovInquiryQueryResource"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LovInquiryAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters": {
+            "get": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "get parameter data list",
+                "operationId": "getParametersInformationList",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PaginationWithExtraInputFieldResourceQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SystemParametersListAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/{parameterId}": {
+            "get": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "get parameter data details",
+                "operationId": "getParametersInformationDetails",
+                "parameters": [
+                    {
+                        "name": "parameterId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SystemParametersDetailsAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/pending": {
+            "get": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "get pending parameter data list",
+                "operationId": "getPendingParametersInformationList",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PaginationResourceQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SystemParametersPendingListAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/pending/{pendingId}": {
+            "get": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "get pending parameter data details",
+                "operationId": "getPendingParametersInformationDetails",
+                "parameters": [
+                    {
+                        "name": "pendingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SystemParametersPendingDetailsAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/configuration/system-parameters/history": {
+            "get": {
+                "tags": [
+                    " System Parameters configuration"
+                ],
+                "summary": "get pending parameter data history",
+                "operationId": "getPendingParametersHistoryList",
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/HistoryResourceQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "x-trace-id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SystemParametersPendingListAPIResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "API Roles Not Found",
+                        "headers": {
+                            "x-trace-Id": {
+                                "description": "unique identifier as a correlation id",
+                                "required": true,
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHeader"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PendingChannelRateRuleInboxResource": {
+                "required": [
+                    "limit",
+                    "offset"
+                ],
+                "type": "object",
+                "properties": {
+                    "pendingRequestId": {
+                        "type": "string",
+                        "description": "The unique identifier for the pending request",
+                        "example": "123",
+                        "x-minLength": 1,
+                        "x-maxLength": 36,
+                        "x-message": "Invalid Id"
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "description": "The pagination offset",
+                        "format": "int32",
+                        "example": 0,
+                        "x-min": 0,
+                        "x-message": "Invalid Pagination Offset"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The maximum number of records per page",
+                        "format": "int32",
+                        "example": 20,
+                        "x-min": 1,
+                        "x-max": 10000,
+                        "x-message": "Invalid Pagination Limit"
+                    },
+                    "fromDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The start date for filtering pending channel rate rules",
+                        "example": "2024-11-20"
+                    },
+                    "toDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The end date for filtering pending channel rate rules",
+                        "example": "2024-11-20"
+                    }
+                },
+                "description": "Resource for managing pending channel rate rule inbox"
+            },
+            "SystemParametersPendingListAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "systemParametersPendingListResponse": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SystemParametersPendingDetailsResponse"
+                        }
+                    }
+                }
+            },
+            "PendingChannelRateRuleRouteToMakerResource": {
+                "required": [
+                    "rejectionReason"
+                ],
+                "type": "object",
+                "properties": {
+                    "remarks": {
+                        "type": "string",
+                        "description": "Any additional comments or notes related to the pending channel rate rule",
+                        "example": "Additional comments about the pending channel rate rule",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Remarks should be within range."
+                    },
+                    "rejectionReason": {
+                        "type": "string",
+                        "description": "The reason why the pending channel rate rule was rejected",
+                        "example": "Invalid product category",
+                        "x-minLength": 1,
+                        "x-maxLength": 200,
+                        "x-message": "Text should be within range."
+                    }
+                },
+                "description": "Resource for routing pending channel rate rules to makers"
+            },
+            "SystemParameterManageMakerResourceCommand": {
+                "required": [
+                    "action"
+                ],
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "action",
+                        "enum": [
+                            "CREATE",
+                            "UPDATE",
+                            "DELETE"
+                        ],
+                        "x-allowedStrings": [
+                            "CREATE",
+                            "UPDATE",
+                            "DELETE",
+                            "APPROVE",
+                            "REJECT"
+                        ],
+                        "x-message": "Invalid value"
+                    },
+                    "parameterId": {
+                        "type": "string",
+                        "description": "parameterId"
+                    },
+                    "parameterName": {
+                        "type": "string",
+                        "description": "parameterName",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "parameterValue": {
+                        "type": "string",
+                        "description": "parameterValue",
+                        "x-minLength": 1,
+                        "x-maxLength": 100,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "parameterDescription": {
+                        "type": "string",
+                        "description": "parameterDescription",
+                        "x-minLength": 1,
+                        "x-maxLength": 200,
+                        "x-message": "Text should be within range."
+                    },
+                    "parameterModule": {
+                        "type": "string",
+                        "description": "parameterModule",
+                        "x-minLength": 1,
+                        "x-maxLength": 30,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "isEditable": {
+                        "type": "boolean",
+                        "description": "isEditable"
+                    },
+                    "parameterLookUpCode": {
+                        "type": "string",
+                        "description": "parameterLookUpCode",
+                        "x-minLength": 1,
+                        "x-maxLength": 50,
+                        "x-message": "Invalid Lookup Code"
+                    }
+                }
+            },
+            "PendingChannelRateRulesListAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "pendingChannelRateRuleDetailsList": {
+                        "type": "array",
+                        "description": "A list of pending channel rate rule details.",
+                        "items": {
+                            "$ref": "#/components/schemas/PendingChannelRateRuleDetails"
+                        }
+                    },
+                    "count": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Total count of pending prospects.",
+                        "format": "int64",
+                        "example": 100
+                    }
+                },
+                "description": "Contains a list of pending channel rate rule details."
+            },
+            "LovInquiryAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "lovInquriyAPIResponse": {
+                        "type": "array",
+                        "description": "lovInquriyAPIResponse",
+                        "items": {
+                            "$ref": "#/components/schemas/LovInquiryAPIResponseItem"
+                        }
+                    }
+                }
+            },
+            "SystemParametersDetailsAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "systemParametersDetailsResponse": {
+                        "$ref": "#/components/schemas/SystemParametersDetailsResponse"
+                    }
+                }
+            },
+            "ChannelRateRuleDetails": {
+                "type": "object",
+                "properties": {
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Start date of the rule's validity period.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "End date of the rule's validity period.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "ruleId": {
+                        "type": "integer",
+                        "description": "Unique identifier for the channel rate.",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "ruleName": {
+                        "type": "string",
+                        "description": "Name of the rule describing its purpose.",
+                        "example": "Discount for 12 months"
+                    },
+                    "minAmount": {
+                        "type": "number",
+                        "description": "Minimum amount required for the rule to apply.",
+                        "example": 1000
+                    },
+                    "maxAmount": {
+                        "type": "number",
+                        "description": "Maximum amount within which the rule applies.",
+                        "example": 5000
+                    },
+                    "minTenureMonths": {
+                        "type": "integer",
+                        "description": "Minimum tenure (in months) for the rule to apply.",
+                        "format": "int32",
+                        "example": 6
+                    },
+                    "maxTenureMonths": {
+                        "type": "integer",
+                        "description": "Maximum tenure (in months) for the rule to apply.",
+                        "format": "int32",
+                        "example": 24
+                    },
+                    "additionalRate": {
+                        "type": "number",
+                        "description": "Additional rate applied by this rule.",
+                        "example": 2.5
+                    }
+                },
+                "description": "Represents a channel rate rule."
+            },
+            "PaginationResourceQuery": {
+                "required": [
+                    "limit",
+                    "offset"
+                ],
+                "type": "object",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "description": "The pagination offset",
+                        "format": "int32",
+                        "example": 0,
+                        "x-min": 0,
+                        "x-message": "Invalid Pagination Offset"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The pagination limit",
+                        "format": "int32",
+                        "example": 20,
+                        "x-min": 1,
+                        "x-max": 10000,
+                        "x-message": "Invalid Pagination Limit"
+                    },
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "The approval status",
+                        "example": "APPROVED",
+                        "enum": [
+                            "APPROVED",
+                            "REJECTED",
+                            "UNDER_APPROVAL"
+                        ],
+                        "x-allowedStrings": [
+                            "APPROVED",
+                            "REJECTED",
+                            "UNDER_APPROVAL"
+                        ],
+                        "x-message": "Invalid value"
+                    },
+                    "fromDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The from date.",
+                        "example": "2024-11-20"
+                    },
+                    "toDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The to date.",
+                        "example": "2024-11-20"
+                    }
+                },
+                "description": "The Pagination request in JSON format"
+            },
+            "LovInquiryAPIResponseItem": {
+                "type": "object",
+                "properties": {
+                    "lookUpCode": {
+                        "type": "string",
+                        "description": "lookUpCode",
+                        "example": "EG"
+                    },
+                    "englishName": {
+                        "type": "string",
+                        "description": "englishName",
+                        "example": "Egypt"
+                    },
+                    "arabicName": {
+                        "type": "string",
+                        "description": "arabicName",
+                        "example": "مصر"
+                    },
+                    "displayOrder": {
+                        "type": "integer",
+                        "description": "displayOrder",
+                        "format": "int32",
+                        "example": 12
+                    },
+                    "tanentId": {
+                        "type": "string",
+                        "description": "tanentId",
+                        "example": "123"
+                    },
+                    "fliterField1": {
+                        "type": "string",
+                        "description": "fliterField1",
+                        "example": "Africa"
+                    },
+                    "fliterField2": {
+                        "type": "string",
+                        "description": "fliterField2",
+                        "example": "covidRestricted"
+                    },
+                    "fliterField3": {
+                        "type": "string",
+                        "description": "fliterField3",
+                        "example": "<"
+                    },
+                    "fliterField4": {
+                        "type": "string",
+                        "description": "fliterField4",
+                        "example": "unstable"
+                    }
+                },
+                "description": "lovInquriyAPIResponse"
+            },
+            "ChannelRateRuleViewResource": {
+                "type": "object",
+                "properties": {
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The end date when this rule ceases to be effective.",
+                        "example": "2024-12-31T23:59:59"
+                    },
+                    "ruleId": {
+                        "type": "integer",
+                        "description": "Unique identifier for the channel rate.",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The start date when this rule becomes effective.",
+                        "example": "2024-11-20T15:30:00"
+                    }
+                },
+                "description": "Represents a view resource for channel rate rules."
+            },
+            "SystemParametersDetailsResponse": {
+                "type": "object",
+                "properties": {
+                    "parameterId": {
+                        "type": "string",
+                        "description": "parameter id",
+                        "example": "11"
+                    },
+                    "parameterName": {
+                        "type": "string",
+                        "description": "parameterName",
+                        "example": "numberOfRetrials"
+                    },
+                    "parameterValueDataType": {
+                        "type": "string",
+                        "description": "parameterValueDataType",
+                        "example": "Boolean"
+                    },
+                    "parameterValue": {
+                        "type": "string",
+                        "description": "parameterValue",
+                        "example": "300"
+                    },
+                    "parameterDescription": {
+                        "type": "string",
+                        "description": "parameterDescription",
+                        "example": "total number of retry times before failure"
+                    },
+                    "parameterModule": {
+                        "type": "string",
+                        "description": "parameterModule"
+                    },
+                    "isEditable": {
+                        "type": "boolean",
+                        "description": "isEditable"
+                    },
+                    "requestNumber": {
+                        "type": "string",
+                        "description": "requestNumber"
+                    },
+                    "createUser": {
+                        "type": "string",
+                        "description": "createUser"
+                    },
+                    "updateUser": {
+                        "type": "string",
+                        "description": "updateUser"
+                    },
+                    "approveUser": {
+                        "type": "string",
+                        "description": "approveUser"
+                    },
+                    "createDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The create date time.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "approveDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The approve date time.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "updateDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The update date time.",
+                        "example": "2024-11-20T15:30:00"
+                    }
+                }
+            },
+            "PendingChannelRateRuleDetails": {
+                "type": "object",
+                "properties": {
+                    "pendingRuleId": {
+                        "type": "string",
+                        "description": "Unique identifier for the channel rate rule.",
+                        "example": "451"
+                    },
+                    "ruleName": {
+                        "type": "string",
+                        "description": "Name of the channel rate rule.",
+                        "example": "Discount for 12 months"
+                    },
+                    "minAmount": {
+                        "type": "number",
+                        "description": "Minimum amount for the channel rate rule.",
+                        "example": 1000
+                    },
+                    "maxAmount": {
+                        "type": "number",
+                        "description": "Maximum amount for the channel rate rule.",
+                        "example": 5000
+                    },
+                    "minTenureMonths": {
+                        "type": "integer",
+                        "description": "Minimum tenure (in months) for the channel rate rule.",
+                        "format": "int32",
+                        "example": 6
+                    },
+                    "maxTenureMonths": {
+                        "type": "integer",
+                        "description": "Maximum tenure (in months) for the channel rate rule.",
+                        "format": "int32",
+                        "example": 24
+                    },
+                    "additionalRate": {
+                        "type": "number",
+                        "description": "Additional rate for the channel rate rule.",
+                        "example": 2.5
+                    },
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Start date of the rule's validity.",
+                        "example": "2024-11-20T00:00:00"
+                    },
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "End date of the rule's validity.",
+                        "example": "2024-12-31T23:59:59"
+                    },
+                    "remarks": {
+                        "type": "string",
+                        "description": "Remarks associated with the channel rate rule.",
+                        "example": "ID will expire soon"
+                    },
+                    "rejectionReason": {
+                        "type": "string",
+                        "description": "The reason for rejection, if the approval was rejected.",
+                        "example": "Missing information."
+                    },
+                    "payout": {
+                        "type": "number",
+                        "description": "Payout amount associated with the channel rate rule.",
+                        "example": 1000
+                    },
+                    "lastAction": {
+                        "type": "string",
+                        "description": "Last action performed on the pending channel rate rule.",
+                        "example": "CREATE"
+                    },
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "Status indicating whether the pending channel rate rule has been approved or not.",
+                        "example": "APPROVED"
+                    },
+                    "approveUser": {
+                        "type": "string",
+                        "description": "User who approved the channel rate rule.",
+                        "example": "officer1@alrajhibank.com.my"
+                    },
+                    "approveDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date when the channel rate rule was approved.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "updateUser": {
+                        "type": "string",
+                        "description": "User who last updated the channel rate rule information.",
+                        "example": "officer1@alrajhibank.com.my"
+                    },
+                    "updateDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date when the channel rate rule information was last updated.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "createUser": {
+                        "type": "string",
+                        "description": "User who created the pending channel rate rule information.",
+                        "example": "officer1@alrajhibank.com.my"
+                    },
+                    "createDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date when the pending channel rate rule information was created.",
+                        "example": "2024-11-20T15:30:00"
+                    }
+                },
+                "description": "Details of a pending channel rate rule."
+            },
+            "SystemParametersPendingDetailsResponse": {
+                "type": "object",
+                "properties": {
+                    "pendingId": {
+                        "type": "string",
+                        "description": "PendingId",
+                        "example": "1"
+                    },
+                    "parameterId": {
+                        "description": "parameter id",
+                        "example": "11"
+                    },
+                    "parameterName": {
+                        "description": "parameterName",
+                        "example": "numberOfRetrials"
+                    },
+                    "parameterValueDataType": {
+                        "description": "parameterValueDataType",
+                        "example": "Boolean"
+                    },
+                    "parameterValue": {
+                        "description": "parameterValue",
+                        "example": "300"
+                    },
+                    "parameterDescription": {
+                        "description": "parameterDescription",
+                        "example": "total number of retry times before failure"
+                    },
+                    "parameterModule": {
+                        "description": "parameterModule"
+                    },
+                    "isEditable": {
+                        "description": "isEditable"
+                    },
+                    "requestNumber": {
+                        "description": "requestNumber"
+                    },
+                    "createUser": {
+                        "description": "createUser"
+                    },
+                    "updateUser": {
+                        "description": "updateUser"
+                    },
+                    "approveUser": {
+                        "description": "approveUser"
+                    },
+                    "createDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The create date time.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "approveDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The approve date time.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "updateDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "The update date time.",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "approvalStatus": {
+                        "description": "approvalStatus"
+                    },
+                    "lastAction": {
+                        "description": "lastAction"
+                    }
+                }
+            },
+            "ResponseHeader": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "instance": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubError"
+                        }
+                    }
+                }
+            },
+            "PendingChannelRateRuleRejectResource": {
+                "required": [
+                    "remarks"
+                ],
+                "type": "object",
+                "properties": {
+                    "remarks": {
+                        "type": "string",
+                        "description": "The specific reason for rejecting the channel rate rule",
+                        "example": "Insufficient market data",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Remarks should be within range."
+                    }
+                },
+                "description": "Resource for rejecting pending channel rate rules"
+            },
+            "PaginationWithExtraInputFieldResourceQuery": {
+                "required": [
+                    "limit",
+                    "offset"
+                ],
+                "type": "object",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "description": "The pagination offset",
+                        "format": "int32",
+                        "example": 0,
+                        "x-min": 0,
+                        "x-message": "Invalid Pagination Offset"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The pagination limit",
+                        "format": "int32",
+                        "example": 20,
+                        "x-min": 1,
+                        "x-max": 10000,
+                        "x-message": "Invalid Pagination Limit"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "name",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    }
+                },
+                "description": "The Pagenation with extra optional input field request in JSON format"
+            },
+            "SystemParametersPendingDetailsAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "systemParametersPendingDetailsResponse": {
+                        "$ref": "#/components/schemas/SystemParametersPendingDetailsResponse"
+                    }
+                }
+            },
+            "LovInquiryQueryResource": {
+                "type": "object",
+                "properties": {
+                    "filterField1": {
+                        "type": "string",
+                        "description": "filterField",
+                        "example": "Africa",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "filterField2": {
+                        "type": "string",
+                        "description": "filterField2",
+                        "example": "covidRestricted",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "filterField3": {
+                        "type": "string",
+                        "description": "filterField3",
+                        "example": "a",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "filterField4": {
+                        "type": "string",
+                        "description": "filterField4",
+                        "example": "unstable",
+                        "x-minLength": 1,
+                        "x-maxLength": 60,
+                        "x-message": "Invalid Parameter Name. Name should be in range."
+                    },
+                    "tanentId": {
+                        "type": "string",
+                        "description": "tanentId",
+                        "example": "123"
+                    }
+                }
+            },
+            "HistoryResourceQuery": {
+                "required": [
+                    "fromDate",
+                    "limit",
+                    "offset",
+                    "toDate"
+                ],
+                "type": "object",
+                "properties": {
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "The approval status",
+                        "example": "APPROVED",
+                        "enum": [
+                            "APPROVED",
+                            "REJECTED",
+                            "UNDER_APPROVAL"
+                        ],
+                        "x-allowedStrings": [
+                            "APPROVED",
+                            "REJECTED",
+                            "UNDER_APPROVAL"
+                        ],
+                        "x-message": "Invalid value"
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "description": "The pagination offset",
+                        "format": "int32",
+                        "example": 0,
+                        "x-min": 0,
+                        "x-message": "Invalid Pagination Offset"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The pagination limit",
+                        "format": "int32",
+                        "example": 20,
+                        "x-min": 1,
+                        "x-max": 10000,
+                        "x-message": "Invalid Pagination Limit"
+                    },
+                    "fromDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The from date",
+                        "example": "2024-12-11"
+                    },
+                    "toDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The to date",
+                        "example": "2024-12-30"
+                    }
+                },
+                "description": "The History request in JSON format"
+            },
+            "ChannelRateRuleEditResource": {
+                "required": [
+                    "additionalRate",
+                    "effectiveEndDate",
+                    "effectiveStartDate",
+                    "maxAmount",
+                    "maxTenureMonths",
+                    "minAmount",
+                    "minTenureMonths",
+                    "ruleName"
+                ],
+                "type": "object",
+                "properties": {
+                    "ruleName": {
+                        "type": "string",
+                        "description": "The name of the rule",
+                        "example": "Discount for 12 months",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Invalid rule name. Name should be in range."
+                    },
+                    "minAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "The minimum amount for the rule",
+                        "example": 1000
+                    },
+                    "maxAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "The maximum amount for the rule",
+                        "example": 5000
+                    },
+                    "minTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "The minimum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 6
+                    },
+                    "maxTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "The maximum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 24
+                    },
+                    "additionalRate": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "The additional rate for the rule",
+                        "example": 2.5
+                    },
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Start date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "End date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    }
+                },
+                "description": "Resource for editing channel rate rules"
+            },
+            "ProfilePendingActionResource": {
+                "required": [
+                    "approvalStatus",
+                    "createDate",
+                    "createUser",
+                    "entityType",
+                    "pendingId"
+                ],
+                "type": "object",
+                "properties": {
+                    "entityType": {
+                        "type": "string",
+                        "description": "from which table is this action",
+                        "example": "System Parameter"
+                    },
+                    "createUser": {
+                        "type": "string",
+                        "description": "User That Raised The Pending Action",
+                        "example": "User"
+                    },
+                    "createDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date That The Pending Action Was Raised",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "updateUser": {
+                        "type": "string",
+                        "description": "User That Updated The Pending Action",
+                        "example": "User"
+                    },
+                    "updateDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date That The Pending Action Was Updated",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "approveUser": {
+                        "type": "string",
+                        "description": "User That Approved/Rejected The Pending Action",
+                        "example": "User"
+                    },
+                    "approveDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Date That The Pending Action Was Approved/Rejected",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "pendingId": {
+                        "type": "string",
+                        "description": "Pending id",
+                        "example": "12341-1325asfda-132.."
+                    },
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "approvalStatus",
+                        "example": "APPROVED"
+                    },
+                    "parameterName": {
+                        "type": "string",
+                        "description": "Parameter Name"
+                    }
+                },
+                "description": "The list of pending actions"
+            },
+            "ProfilePendingDataAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "pendingList": {
+                        "type": "array",
+                        "description": "The list of pending actions",
+                        "items": {
+                            "$ref": "#/components/schemas/ProfilePendingActionResource"
+                        }
+                    }
+                },
+                "description": "Report Pending Data API Response Body"
+            },
+            "ChannelRateRulesInqAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "channelRateRulesListDetailDetails": {
+                        "type": "array",
+                        "description": "List of channel rate rule details.",
+                        "items": {
+                            "$ref": "#/components/schemas/ChannelRateRuleDetails"
+                        }
+                    }
+                },
+                "description": "Response object containing channel rate rules details."
+            },
+            "ProfilePendingDataResource": {
+                "required": [
+                    "fromDate",
+                    "toDate",
+                    "userId"
+                ],
+                "type": "object",
+                "properties": {
+                    "fromDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "From date",
+                        "example": "2024-11-20"
+                    },
+                    "toDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "To date",
+                        "example": "2024-11-20"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "user id for filtering",
+                        "example": "123",
+                        "x-minLength": 1,
+                        "x-maxLength": 36,
+                        "x-message": "Invalid Id"
+                    }
+                }
+            },
+            "SystemParametersListAPIResponse": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "systemParametersListResponse": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SystemParametersDetailsResponse"
+                        }
+                    }
+                }
+            },
+            "EmptyResponse": {
+                "type": "object"
+            },
+            "PendingChannelRateRuleUpdateAndApproveResource": {
+                "type": "object",
+                "properties": {
+                    "ruleName": {
+                        "type": "string",
+                        "description": "Name of the rule",
+                        "example": "Discount for 12 months",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Invalid rule name. Name should be in range."
+                    },
+                    "minAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Minimum amount for the rule",
+                        "example": 1000
+                    },
+                    "maxAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Maximum amount for the rule",
+                        "example": 5000
+                    },
+                    "minTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Minimum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 6
+                    },
+                    "maxTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Maximum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 24
+                    },
+                    "additionalRate": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Additional rate for the rule",
+                        "example": 2.5
+                    },
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Start date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "End date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "remarks": {
+                        "type": "string",
+                        "description": "The specific reason for rejecting the channel rate rule",
+                        "example": "Insufficient market data",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Remarks should be within range."
+                    }
+                },
+                "description": "Resource for updating and approving pending channel rate rules."
+            },
+            "PendingChannelRateRuleHistoryResource": {
+                "required": [
+                    "limit",
+                    "offset"
+                ],
+                "type": "object",
+                "properties": {
+                    "pendingRequestId": {
+                        "type": "string",
+                        "description": "The unique identifier for the pending request",
+                        "example": "123",
+                        "x-minLength": 1,
+                        "x-maxLength": 36,
+                        "x-message": "Invalid Id"
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "description": "The pagination offset",
+                        "format": "int32",
+                        "example": 0,
+                        "x-min": 0,
+                        "x-message": "Invalid Pagination Offset"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The maximum number of records per page",
+                        "format": "int32",
+                        "example": 20,
+                        "x-min": 1,
+                        "x-max": 10000,
+                        "x-message": "Invalid Pagination Limit"
+                    },
+                    "fromDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The start date for filtering pending channel rate rules",
+                        "example": "2024-11-20"
+                    },
+                    "toDate": {
+                        "pattern": "yyyy-MM-dd",
+                        "type": "string",
+                        "description": "The end date for filtering pending channel rate rules",
+                        "example": "2024-11-20"
+                    },
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "Approval Status",
+                        "example": "UNDER_APPROVAL",
+                        "x-allowedStrings": [
+                            "APPROVED",
+                            "REJECTED",
+                            "UNDER_APPROVAL"
+                        ],
+                        "x-message": "Invalid approval status."
+                    }
+                },
+                "description": "Pending Channel Rate Rule History Resource"
+            },
+            "ChannelRateRuleCreateResource": {
+                "required": [
+                    "additionalRate",
+                    "effectiveEndDate",
+                    "effectiveStartDate",
+                    "maxAmount",
+                    "maxTenureMonths",
+                    "minAmount",
+                    "minTenureMonths",
+                    "ruleName"
+                ],
+                "type": "object",
+                "properties": {
+                    "ruleName": {
+                        "type": "string",
+                        "description": "Name of the rule",
+                        "example": "Discount for 12 months",
+                        "x-minLength": 1,
+                        "x-maxLength": 1000,
+                        "x-message": "Invalid rule name. Name should be in range."
+                    },
+                    "minAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Minimum amount for the rule",
+                        "format": "decimal",
+                        "example": 1000
+                    },
+                    "maxAmount": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Maximum amount for the rule",
+                        "format": "decimal",
+                        "example": 5000
+                    },
+                    "minTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Minimum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 6
+                    },
+                    "maxTenureMonths": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Maximum tenure (in months) for the rule",
+                        "format": "int32",
+                        "example": 24
+                    },
+                    "additionalRate": {
+                        "minimum": 0,
+                        "type": "number",
+                        "description": "Additional rate for the rule",
+                        "format": "decimal",
+                        "example": 2.5
+                    },
+                    "effectiveStartDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "Start date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    },
+                    "effectiveEndDate": {
+                        "pattern": "yyyy-MM-dd'T'HH:mm:ss",
+                        "type": "string",
+                        "description": "End date of the rule's validity",
+                        "example": "2024-11-20T15:30:00"
+                    }
+                },
+                "description": "Resource for creating a new channel rate rule"
+            },
+            "SubError": {
+                "type": "object",
+                "properties": {
+                    "pointer": {
+                        "type": "string"
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

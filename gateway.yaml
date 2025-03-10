@@ -1,0 +1,3231 @@
+openapi: 3.0.1
+info:
+  title: Backoffice Product Master Service Documentation.
+  description: Back Office Product master service. This service is concerned with
+    handling lovs and system parameters.
+  version: '1.0'
+servers:
+- url: http://localhost:8088/product-master
+  description: Generated server url
+paths:
+  /v1/term-deposit-rates/channel-rate-rules/{channelRateRuleId}:
+    put:
+      operationId: editChannelRateRule
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: channelRateRuleId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: PUT
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/{channelRateRuleId}
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.channelRateRuleId: method.request.path.channelRateRuleId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules:
+    post:
+      operationId: createChannelRateRule
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/update-and-approve:
+    post:
+      operationId: updateAndApprovePendingChannelRateRule
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingTdId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/update-and-approve
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingTdId: method.request.path.pendingTdId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/route-to-maker:
+    post:
+      operationId: routeToMakerChannelRateRule
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingTdId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/route-to-maker
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingTdId: method.request.path.pendingTdId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/reject:
+    post:
+      operationId: rejectPendingChannelRateRuleRequest
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingTdId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/reject
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingTdId: method.request.path.pendingTdId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/approve:
+    post:
+      operationId: approvePendingChannelRateRuleRequest
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingTdId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingTdId}/approve
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingTdId: method.request.path.pendingTdId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/pending/{pendingId}/reject:
+    post:
+      operationId: rejectPendingParametersInformation
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/pending/{pendingId}/reject
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingId: method.request.path.pendingId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/pending/{pendingId}/approve:
+    post:
+      operationId: approvePendingParametersInformation
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/pending/{pendingId}/approve
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingId: method.request.path.pendingId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/manage:
+    post:
+      operationId: initiateCreateDeleteUpdateSystemParametersInformation
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: POST
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/manage
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions:
+    get:
+      operationId: getPendingChannelRateRuleActionsHistory
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingRequestId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: fromDate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: approvalStatus
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.querystring.pendingRequestId: method.request.querystring.pendingRequestId
+        integration.request.querystring.offset: method.request.querystring.offset
+        integration.request.querystring.limit: method.request.querystring.limit
+        integration.request.querystring.fromDate: method.request.querystring.fromDate
+        integration.request.querystring.toDate: method.request.querystring.toDate
+        integration.request.querystring.approvalStatus: method.request.querystring.approvalStatus
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingRequestId}:
+    get:
+      operationId: getPendingChannelRateRuleDetails
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/{pendingRequestId}
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingRequestId: method.request.path.pendingRequestId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/term-deposit-rates/channel-rate-rules/pending-actions/inbox:
+    get:
+      operationId: getPendingChannelRateRuleActionsInbox
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingRequestId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: fromDate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/term-deposit-rates/channel-rate-rules/pending-actions/inbox
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.querystring.pendingRequestId: method.request.querystring.pendingRequestId
+        integration.request.querystring.offset: method.request.querystring.offset
+        integration.request.querystring.limit: method.request.querystring.limit
+        integration.request.querystring.fromDate: method.request.querystring.fromDate
+        integration.request.querystring.toDate: method.request.querystring.toDate
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/profile/pending:
+    get:
+      operationId: getProfilePendingData
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/profile/pending
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.querystring.fromDate: method.request.querystring.fromDate
+        integration.request.querystring.toDate: method.request.querystring.toDate
+        integration.request.querystring.userId: method.request.querystring.userId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/lov/{lovCode}:
+    get:
+      operationId: lovInquiryController
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: lovCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/lov/{lovCode}
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.lovCode: method.request.path.lovCode
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters:
+    get:
+      operationId: getParametersInformationList
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/{parameterId}:
+    get:
+      operationId: getParametersInformationDetails
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: parameterId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/{parameterId}
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.parameterId: method.request.path.parameterId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/pending:
+    get:
+      operationId: getPendingParametersInformationList
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/pending
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/pending/{pendingId}:
+    get:
+      operationId: getPendingParametersInformationDetails
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      - name: pendingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/pending/{pendingId}
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.path.pendingId: method.request.path.pendingId
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http
+  /v1/products/configuration/system-parameters/history:
+    get:
+      operationId: getPendingParametersHistoryList
+      parameters:
+      - name: x-trace-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+      - name: Accept-Language
+        in: header
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cookie
+        in: header
+        schema:
+          type: string
+      - name: x-forward-for
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '400':
+          description: 400 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '401':
+          description: 401 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '403':
+          description: 403 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+        '404':
+          description: 404 response
+          headers:
+            x-trace-id:
+              schema:
+                type: string
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseHeader'
+      security:
+      - api_key: []
+      x-amazon-apigateway-request-validator: Validate body, query string parameters,
+        and headers
+      x-amazon-apigateway-integration:
+        connectionId: '1234'
+        httpMethod: GET
+        uri: https://${stageVariables.url}/v1/products/configuration/system-parameters/history
+        responses:
+          ^200$:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^500$:
+            statusCode: '500'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^400$:
+            statusCode: '400'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^401$:
+            statusCode: '401'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^404$:
+            statusCode: '404'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+          ^403$:
+            statusCode: '403'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Allow-Origin: '''hamasa'''
+        requestParameters:
+          integration.request.header.x-trace-id: method.request.header.x-trace-id
+          integration.request.header.Content-Type: method.request.header.Content-Type
+          integration.request.header.Accept-Language: method.request.header.Accept-Language
+          integration.request.header.User-Agent: method.request.header.User-Agent
+          integration.request.header.Authorization: method.request.header.Authorization
+          integration.request.header.cookie: method.request.header.cookie
+          integration.request.header.x-forward-for: method.request.header.x-forward-for
+        connectionType: VPC_LINK
+        passthroughBehavior: when_no_templates
+        type: http

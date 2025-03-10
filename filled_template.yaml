@@ -1,0 +1,250 @@
+/api/v1/resource:
+  get:
+    operationId: getResource
+    parameters:
+    - in: header
+      name: x-trace-id
+      required: true
+      schema:
+        type: string
+    - in: header
+      name: Content-Type
+      schema:
+        type: string
+    - in: header
+      name: Accept-Language
+      schema:
+        type: string
+    - in: header
+      name: User-Agent
+      schema:
+        type: string
+    - in: header
+      name: Authorization
+      required: true
+      schema:
+        type: string
+    - in: header
+      name: cookie
+      schema:
+        type: string
+    - in: header
+      name: x-forward-for
+      schema:
+        type: string
+    - in: query
+      name: <if any, add the query parameter name here and replicate this parameter
+        entry for as many parameters the endpoint have>
+      required: true
+      schema:
+        type: string
+    - in: query
+      name: filter
+      required: true
+      schema:
+        type: string
+    - in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/<Put the name of the resource defined in $root.components.schemas
+              that maps the endpoint request body>'
+      required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/<Put the name of the resource defined in
+                $root.components.schemas that maps the endpoint response body>'
+        description: 200 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+      '400':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseHeader'
+        description: 400 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+      '401':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseHeader'
+        description: 401 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+      '403':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseHeader'
+        description: 403 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+      '404':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseHeader'
+        description: 404 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+      '500':
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseHeader'
+        description: 500 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+          x-trace-id:
+            schema:
+              type: string
+    security:
+    - api_key: []
+    x-amazon-apigateway-integration:
+      connectionId: vpc-12345678
+      connectionType: VPC_LINK
+      httpMethod: <here put the endpoint http method e.g. GET, POST or PUT - Make
+        sure all uppercase letters>
+      passthroughBehavior: when_no_templates
+      requestParameters:
+        integration.request.header.Accept-Language: method.request.header.Accept-Language
+        integration.request.header.Authorization: method.request.header.Authorization
+        integration.request.header.Content-Type: method.request.header.Content-Type
+        integration.request.header.User-Agent: method.request.header.User-Agent
+        integration.request.header.cookie: method.request.header.cookie
+        integration.request.header.x-forward-for: method.request.header.x-forward-for
+        integration.request.header.x-trace-id: method.request.header.x-trace-id
+        integration.request.path.resourceId: method.request.path.resourceId
+        integration.request.querystring.filter: method.request.querystring.filter
+        integration.request.querystring.sort: method.request.querystring.sort
+      responses:
+        ^200$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          responseTemplates:
+            application/json: '#set($inputRoot = $input.path(''$''))'
+          statusCode: '200'
+        ^400$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '400'
+        ^401$|^302$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '401'
+        ^403$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '403'
+        ^404$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '404'
+        ^500$:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '500'
+      type: http
+      uri: https://${stageVariables.url}/https://backend.example.com/api
+    x-amazon-apigateway-request-validator: Validate body, query string parameters,
+      and headers
+  options:
+    responses:
+      '200':
+        content: {}
+        description: 200 response
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+          Access-Control-Allow-Headers:
+            schema:
+              type: string
+          Access-Control-Allow-Methods:
+            schema:
+              type: string
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+    x-amazon-apigateway-integration:
+      passthroughBehavior: when_no_match
+      requestTemplates:
+        application/json: '{"statusCode": 200}'
+      responses:
+        default:
+          responseParameters:
+            method.response.header.Access-Control-Allow-Credentials: '''true'''
+            method.response.header.Access-Control-Allow-Headers: '''x-trace-id,x-api-key,Authorization,Cache-Control,Content-Type'''
+            method.response.header.Access-Control-Allow-Methods: '''<put the http
+              method here upper case>,OPTIONS'''
+            method.response.header.Access-Control-Allow-Origin: '''<put the front
+              end-url here as per stage>'''
+          statusCode: '200'
+      type: mock
