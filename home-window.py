@@ -17,7 +17,7 @@ class SwaggerConverterApp:
         # Use ttkbootstrap for a modern look
         style = Style(theme='flatly')
         root.title("Swagger Converter")
-        root.geometry("700x600")
+        root.geometry("700x650")
         root.configure(bg='#ffffff')
 
         # Main container with soft padding
