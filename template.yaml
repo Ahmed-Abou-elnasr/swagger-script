@@ -197,6 +197,8 @@
       passthroughBehavior: "when_no_templates"
       type: "http"
   options:
+    parameters:
+      - <Add path parameters here if any, remove if none>
     responses:
       "200":
         description: "200 response"

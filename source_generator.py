@@ -1,45 +1,7 @@
-import json
 
 import yaml
-import re
-import amazon_gateway_statics as amz_statics
 
-
-def wrap_values_in_quotes(data):
-    if isinstance(data, dict):
-        return {k: wrap_values_in_quotes(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [wrap_values_in_quotes(v) for v in data]
-    elif isinstance(data, (int, float)):
-        return data
-    elif isinstance(data, str):
-        return f'"{data}"'
-    else:
-        return data
-
-
-def modify_x_prefixed_fields(data):
-    if isinstance(data, dict):
-        new_data = {}
-        for k, v in data.items():
-            if k.startswith("x-"):
-                if k in ["x-minLength", "x-maxLength", "x-minimum", "x-maximum", "x-min", "x-max"]:
-                    new_key = k[2:]  # Remove "x-" prefix
-                    if new_key in ["min", "max"]:
-                        new_key += "imum"
-                    new_data[new_key] = v
-                elif k == "x-allowedStrings":
-                    new_data["enum"] = v if not isinstance(v, list) else f"[{', '.join(map(repr, v))}]"
-                # Ignore/discard x-message and example keys
-                elif k not in ["x-message", "example"]:
-                    new_data[k] = modify_x_prefixed_fields(v)
-            elif k not in ["x-message", "example"]:
-                new_data[k] = modify_x_prefixed_fields(v)
-        return new_data
-    elif isinstance(data, list):
-        return [modify_x_prefixed_fields(v) for v in data]
-    else:
-        return data
+import utils as utils
 
 
 def format_swagger_to_template(input_yaml_path, template_path, output_path, frontend_url, vpc_connection_id, info_title,
@@ -62,21 +24,23 @@ def format_swagger_to_template(input_yaml_path, template_path, output_path, fron
     with open(input_yaml_path, 'r') as file:
         swagger_data = yaml.safe_load(file)
 
-    # Read the template YAML
-    with open(template_path, 'r') as file:
-        template_data = yaml.safe_load(file)
+    # Add custom representers (converters)
+    yaml.add_representer(utils.QuotedString, utils.QuotedString.quoted_string_representer)
+    yaml.add_representer(utils.FlowStyleList, utils.FlowStyleList.flow_style_representer)
 
-    # Modify components by removing "message" and "example" keys, transforming "x-" prefixed keys
-    if "components" in swagger_data:
-        swagger_data["components"] = modify_x_prefixed_fields(wrap_values_in_quotes(swagger_data["components"]))
 
-    # Initialize the output dictionary with the passed parameters
+    process_components(swagger_data)
+
+
+
     output_data = {
         'openapi': swagger_data.get('openapi', '3.0.1'),
         'info': {
-            'title': info_title,  # Use the passed info_title
-            'description': info_description,  # Use the passed info_description
-            'version': info_version  # Use the passed info_version
+            k: v for k, v in {
+                'title': info_title,
+                'description': info_description,
+                'version': info_version
+            }.items() if v
         },
         'servers': [
             {
@@ -89,12 +53,138 @@ def format_swagger_to_template(input_yaml_path, template_path, output_path, fron
             }
         ],
         'paths': {},
-        'components': swagger_data.get('components', {})
+        'components': swagger_data.get('components', {}),
+        'x-amazon-apigateway-gateway-responses': {
+            "AUTHORIZER_CONFIGURATION_ERROR": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201003\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "EXPIRED_TOKEN": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201009\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "MISSING_AUTHENTICATION_TOKEN": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201014\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "BAD_REQUEST_PARAMETERS": {
+                "statusCode": 400,
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\": $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201006\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "DEFAULT_4XX": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\": $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201007\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "WAF_FILTERED": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201021\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "AUTHORIZER_FAILURE": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201004\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "RESOURCE_NOT_FOUND": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201017\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "THROTTLED": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201018\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "UNAUTHORIZED": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201019\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "REQUEST_TOO_LARGE": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201016\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "INVALID_SIGNATURE": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201013\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "API_CONFIGURATION_ERROR": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201002\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "UNSUPPORTED_MEDIA_TYPE": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201020\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "INTEGRATION_FAILURE": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201010\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "QUOTA_EXCEEDED": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201015\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "ACCESS_DENIED": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201001\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "INVALID_API_KEY": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201012\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "BAD_REQUEST_BODY": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201005\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "DEFAULT_5XX": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201008\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            },
+            "INTEGRATION_TIMEOUT": {
+                "responseTemplates": {
+                    "application/json": "{\n  \"status\":  $context.status,\n  \"title\": $context.error.messageString,\n  \"code\": \"E201011\",\n  \"detail\": $context.error.messageString\n}"
+                }
+            }
+        },
+        'x-amazon-apigateway-request-validators': {
+            'Validate body, query string parameters, and headers': {
+                'validateRequestParameters': True,
+                'validateRequestBody': True
+            }
+        }
     }
 
-    # Process each path in the swagger file
+
+    process_paths(swagger_data, output_data, frontend_url, vpc_connection_id)
+
+    output_data = utils.convert_str_values_to_quoted_strings(output_data)
+    with open(output_path, 'w') as file:
+        yaml.dump(output_data, file, sort_keys=False, Dumper=utils.ListIndentDumper)
+
+    print(f"Output YAML file saved to: {output_path}")
+
+def process_paths(swagger_data: dict, output_data: dict, frontend_url: str, vpc_connection_id: str):
+    to_be_deleted_schemas = set()
     for path, methods in swagger_data['paths'].items():
         output_data['paths'][path] = {}
+
+        path_parameters = {}
         # Process each HTTP method
         for method, operation in methods.items():
             if method.lower() != 'options':  # Skip options method as it will be added later
@@ -105,106 +195,128 @@ def format_swagger_to_template(input_yaml_path, template_path, output_path, fron
                     method,
                     frontend_url,
                     vpc_connection_id,
-                    swagger_data
+                    swagger_data,
+                    to_be_deleted_schemas
                 )
                 output_data['paths'][path][method] = method_config
 
-        # Add OPTIONS method with path variables dynamically fetched from path parameters
-        options_config = create_options_method(method.upper(), frontend_url)
+                for param in operation.get('parameters', []):
+                    if param['in'] == 'path':
+                        path_param = {
+                            'name': param['name'],
+                            'in': 'path',
+                            'required': True,
+                            'schema': {
+                                'type': param['schema']['type']  # Add the corresponding type if present
+                            }
+                        }
+                        path_parameters[param['name']] = path_param
 
-        path_parameters = []
-        for param in operation.get('parameters', []):
-            if param['in'] == 'path':
-                path_param = {
-                    'name': param['name'],
-                    'in': 'path',
-                    'required': 'true',
-                    'schema': {
-                        'type': param['schema']['type']  # Add the corresponding type if present
-                    }
-                }
-                path_parameters.append(path_param)
+        path_methods = [key.upper() for key in methods.keys() if key.lower() != "options"]
+        # Add OPTIONS method with path variables dynamically fetched from path parameters
+        options_config = create_options_method(path_methods, frontend_url)
 
         if len(path_parameters) != 0:
-            options_config = {"parameters": path_parameters,
+            options_config = {"parameters": list(path_parameters.values()),
                               **{k: v for k, v in options_config.items() if k != 'parameters'}}
 
         output_data['paths'][path]['options'] = options_config
 
-    # Add security schemes and gateway responses from the original swagger
-    if 'securitySchemes' in swagger_data.get('components', {}):
-        if 'bearerAuth' in swagger_data.get('components').get('securitySchemes'):
-            swagger_data.get('components').get('securitySchemes').pop('bearerAuth')
-        if 'apiKeyHeader' in swagger_data.get('components').get('securitySchemes'):
-            output_data['components']['securitySchemes']['apiKeyHeader'] = \
-                swagger_data['components']['securitySchemes']['apiKeyHeader']
-        elif 'api_key' in swagger_data.get('components').get('securitySchemas'):
-            output_data.get('components').pop('securitySchemes')
-            output_data['components']['securitySchemes']['api_key'] = swagger_data['components']['securitySchemes'][
-                'api_key']
-    else:
-        output_data['components']['securitySchemes'] = amz_statics.get_security_schemas()
+    output_data = delete_unused_schemas(to_be_deleted_schemas, output_data)
 
-    if 'x-amazon-apigateway-gateway-responses' in swagger_data:
-        output_data['x-amazon-apigateway-gateway-responses'] = swagger_data['x-amazon-apigateway-gateway-responses']
-    else:
-        output_data['x-amazon-apigateway-gateway-responses'] = amz_statics.add_gateway_responses_and_validators()[
-            'x-amazon-apigateway-gateway-responses']
-    # Add request validators if present
-    if 'x-amazon-apigateway-request-validators' in swagger_data:
-        output_data['x-amazon-apigateway-request-validators'] = swagger_data['x-amazon-apigateway-request-validators']
-    else:
-        output_data['x-amazon-apigateway-request-validators'] = amz_statics.add_gateway_responses_and_validators()[
-            'x-amazon-apigateway-request-validators']
+def process_components(swagger_data: dict) -> dict:
+    add_security_schemes(swagger_data['components'])
+    swagger_data = modify_x_prefixed_fields(swagger_data)
 
-    # Clean the output data
-    cleaned_output_data = clean_yaml_file(output_data)
+    return swagger_data
 
-    # Write the cleaned output YAML
-    with open(output_path, 'w') as file:
-        yaml.dump(cleaned_output_data, file, sort_keys=False)
-
-    print(f"Cleaned YAML file saved to: {output_path}")
-
-
-def resolve_ref(ref, swagger_data):
-    """Resolves a $ref in the Swagger data."""
-    ref_path = ref.split('/')[1:]  # Split and remove the initial '#'
-    ref_data = swagger_data
-    for part in ref_path:
-        ref_data = ref_data[part]
-
-    # Transform the resolved reference to only include parts in quotes
-    transformed_ref = []
-    required_fields = ref_data.get('required', [])
-
-    for key, value in ref_data.get('properties', {}).items():
-        param = {
-            'name': key,
-            'in': 'query',
-            'schema': {
-                'type': value.get('type').replace("'\"", '').replace("\"'",'')  # Add the corresponding type if present
-            }
+def add_security_schemes(components_dict: dict) -> dict:
+    components_dict['securitySchemes'] = {
+        'api_key': {
+            'type': 'apiKey',
+            'name': 'x-api-key',
+            'in': 'header'
         }
-        if key in required_fields:
-            param['required'] = 'true'
-        transformed_ref.append(param)
+    }
 
-    return transformed_ref
+    return components_dict
 
 
-def create_method_config(path, operation, method, frontend_url, vpc_connection_id, swagger_data):
+def delete_unused_schemas(to_be_deleted_schemas: set[str], swagger_data: dict):
+    def is_schema_used(schema_name: str, data: dict) -> bool:
+        """
+        Recursively search the dictionary for references to the given schema.
+        """
+        ref_string = f"#/components/schemas/{schema_name}"
+
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, str) and ref_string in value:
+                    return True
+                if isinstance(value, (dict, list)) and is_schema_used(schema_name, value):
+                    return True
+        elif isinstance(data, list):
+            for item in data:
+                if is_schema_used(schema_name, item):
+                    return True
+
+        return False
+
+    for schema_component in to_be_deleted_schemas.copy():
+        if not is_schema_used(schema_component, swagger_data):
+            swagger_data["components"]["schemas"].pop(schema_component, None)
+            to_be_deleted_schemas.remove(schema_component)
+
+    if len(to_be_deleted_schemas) > 0:
+        print(f"There is {len(to_be_deleted_schemas)} detected as unused schema(s) that haven't been deleted")
+        print(to_be_deleted_schemas)
+    return swagger_data
+
+
+def modify_x_prefixed_fields(data):
+    remove_x_prefix_from_fields = {"x-minLength", "x-maxLength", "x-minimum", "x-maximum", "x-min", "x-max"}
+    discarded_fields = {"x-message", "example"}
+
+    if isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            if k in discarded_fields:
+                continue
+            if k.startswith("x-"):
+                if k in remove_x_prefix_from_fields:
+                    new_key = k[2:]  # Remove "x-" prefix
+                    if new_key in ["min", "max"]:
+                        new_key += "imum" # change "min" to "minimum" and "max" to "maximum"
+                    new_data[new_key] = v
+                elif k == "x-allowedStrings" or k == "enum": # modify to flow style list
+                    new_data["enum"] = v if not isinstance(v, list) else utils.FlowStyleList(v)
+                elif k not in discarded_fields:
+                    new_data[k] = modify_x_prefixed_fields(v)
+            elif k not in discarded_fields:
+                new_data[k] = modify_x_prefixed_fields(v)
+
+        return new_data
+    elif isinstance(data, list):
+        return [modify_x_prefixed_fields(v) for v in data]
+    else:
+        return data
+
+
+def create_method_config(path, operation, method, frontend_url, vpc_connection_id, swagger_data,
+                         to_be_deleted_schemas: set[str]):
     """Creates the method configuration based on the template."""
+    is_empty_success_response = is_empty_response(operation)
     method_config = {
         'operationId': operation.get('operationId', ''),
         'parameters': [],
+        'requestBody': operation.get('requestBody', {}),
         'responses': {
-            '404': create_error_response(),
-            '200': create_success_response(operation),
-            '400': create_error_response(),
-            '401': create_error_response(),
-            '500': create_error_response(),
-            '403': create_error_response()
+            '404': create_error_response("404"),
+            '200': create_success_response(operation, is_empty_success_response),
+            '400': create_error_response("400"),
+            '401': create_error_response("401"),
+            '500': create_error_response("500"),
+            '403': create_error_response("403")
         },
         'security': [{'api_key': []}],
         'x-amazon-apigateway-request-validator': 'Validate body, query string parameters, and headers'
@@ -212,32 +324,30 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
 
     # Add standard headers
     standard_headers = [
-        {'name': 'x-trace-id', 'in': 'header', 'required': 'true', 'schema': {'type': 'string'}},
+        {'name': 'x-trace-id', 'in': 'header', 'required': True, 'schema': {'type': 'string'}},
         {'name': 'Content-Type', 'in': 'header', 'schema': {'type': 'string'}},
         {'name': 'Accept-Language', 'in': 'header', 'schema': {'type': 'string'}},
         {'name': 'User-Agent', 'in': 'header', 'schema': {'type': 'string'}},
-        {'name': 'Authorization', 'in': 'header', 'required': 'true', 'schema': {'type': 'string'}},
+        {'name': 'Authorization', 'in': 'header', 'required': True, 'schema': {'type': 'string'}},
         {'name': 'cookie', 'in': 'header', 'schema': {'type': 'string'}},
         {'name': 'x-forward-for', 'in': 'header', 'schema': {'type': 'string'}}
     ]
     method_config['parameters'].extend(standard_headers)
 
+    path_parameters = []
     # Add any additional parameters from the operation
     if 'parameters' in operation:
         for param in operation['parameters']:
-            if param['in'] in ['query', "path"]:
+            if param['in'] == 'query':
                 if 'schema' in param and '$ref' in param['schema']:
                     ref = param['schema']['$ref']
-                    resolved_params = resolve_ref(ref, swagger_data)
+                    resolved_params = resolve_ref(ref, swagger_data, to_be_deleted_schemas)
                     method_config['parameters'].extend(resolved_params)
-                else:
-                    path_key = {'name': param['name'], 'in': 'path', 'required': 'true',
-                                'schema': {'type': param['schema']['type']}}
-                    method_config['parameters'].append(path_key)
+            if param['in'] == 'path':
+                path_parameters.append(param)
 
-    # Add request body if present
-    if 'requestBody' in operation:
-        method_config['requestBody'] = operation['requestBody']
+    if 'requestBody' not in operation:
+        method_config.pop('requestBody', None)
 
     # Add integration configuration
     method_config['x-amazon-apigateway-integration'] = create_integration_config(
@@ -245,12 +355,13 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
         method,
         frontend_url,
         vpc_connection_id,
-        method_config['parameters']
+        path_parameters,
+        is_empty_success_response
     )
     return method_config
 
 
-def create_integration_config(path, method, frontend_url, vpc_connection_id, parameters):
+def create_integration_config(path, method, frontend_url, vpc_connection_id, parameters, is_empty_success_response: bool):
     """Creates the API Gateway integration configuration."""
     integration = {
         'connectionId': vpc_connection_id,
@@ -260,8 +371,11 @@ def create_integration_config(path, method, frontend_url, vpc_connection_id, par
             '^200$': {
                 'statusCode': '200',
                 'responseParameters': {
-                    'method.response.header.Access-Control-Allow-Credentials': 'true',
+                    'method.response.header.Access-Control-Allow-Credentials': '\'true\'',
                     'method.response.header.Access-Control-Allow-Origin': f"{frontend_url}"
+                },
+                'responseTemplates': {
+                    'application/json': "#set($inputRoot = $input.path('$'))"
                 }
             }
         },
@@ -279,30 +393,39 @@ def create_integration_config(path, method, frontend_url, vpc_connection_id, par
         'type': 'http'
     }
 
-    # Add error responses
-    error_codes = ['500', '400', '401', '404', '403']
-    for code in error_codes:
-        integration['responses'][f'^{code}$'] = {
+    if not is_empty_success_response:
+        integration['responses']['^200$'].pop("responseTemplates", None)
+
+    error_response_regex_to_status_code_dict = {
+        "^500$": "500",
+        "^400$": "400",
+        "^401$|^302$": "401",
+        "^404$": "404",
+        "^403$": "403"
+    }
+    for regex, code in error_response_regex_to_status_code_dict.items():
+        integration['responses'][regex] = {
             'statusCode': code,
             'responseParameters': {
-                'method.response.header.Access-Control-Allow-Credentials': 'true',
+                'method.response.header.Access-Control-Allow-Credentials': '\'true\'',
                 'method.response.header.Access-Control-Allow-Origin': f"{frontend_url}"
             }
+
         }
 
-        # Add query string and path parameter mappings
-        for param in parameters:
-            if param['in'] == 'query':
-                integration['requestParameters'][
-                    f"integration.request.querystring.{param['name']}"] = f"method.request.querystring.{param['name']}"
-            elif param['in'] == 'path':
-                integration['requestParameters'][
-                    f"integration.request.path.{param['name']}"] = f"method.request.path.{param['name']}"
+    # Add query string and path parameter mappings
+    for param in parameters:
+        if param['in'] == 'query':
+            integration['requestParameters'][
+                f"integration.request.querystring.{param['name']}"] = f"method.request.querystring.{param['name']}"
+        elif param['in'] == 'path':
+            integration['requestParameters'][
+                f"integration.request.path.{param['name']}"] = f"method.request.path.{param['name']}"
 
     return integration
 
 
-def create_options_method(allowed_method, frontend_url):
+def create_options_method(allowed_methods: list[str], frontend_url: str):
     """Creates the OPTIONS method configuration for CORS."""
     return {
         'responses': {
@@ -322,10 +445,10 @@ def create_options_method(allowed_method, frontend_url):
                 'default': {
                     'statusCode': '200',
                     'responseParameters': {
-                        'method.response.header.Access-Control-Allow-Credentials': 'true',
-                        'method.response.header.Access-Control-Allow-Methods': f"{allowed_method},OPTIONS",
-                        'method.response.header.Access-Control-Allow-Headers': "x-trace-id,x-api-key,Authorization,"
-                                                                               "Cache-Control,Content-Type",
+                        'method.response.header.Access-Control-Allow-Credentials': '\'true\'',
+                        'method.response.header.Access-Control-Allow-Methods': f"\'{",".join(allowed_methods)},OPTIONS\'",
+                        'method.response.header.Access-Control-Allow-Headers': "\'x-trace-id,x-api-key,Authorization,"
+                                                                               "Cache-Control,Content-Type\'",
                         'method.response.header.Access-Control-Allow-Origin': f"{frontend_url}"
                     }
                 }
@@ -339,10 +462,10 @@ def create_options_method(allowed_method, frontend_url):
     }
 
 
-def create_error_response():
+def create_error_response(status_code: str):
     """Creates a standard error response configuration."""
     return {
-        'description': 'error response',
+        'description': f"{status_code} response",
         'headers': {
             'x-trace-id': {'schema': {'type': 'string'}},
             'Access-Control-Allow-Origin': {'schema': {'type': 'string'}},
@@ -356,7 +479,7 @@ def create_error_response():
     }
 
 
-def create_success_response(operation):
+def create_success_response(operation, is_empty_success_response: bool):
     """Creates a success response configuration."""
     response = {
         'description': '200 response',
@@ -370,64 +493,98 @@ def create_success_response(operation):
     # Add response content if defined in the operation
     if 'responses' in operation and '200' in operation['responses']:
         response_200 = operation['responses']['200']
-        if 'content' in response_200:
+        if 'content' in response_200 and not is_empty_success_response:
             response['content'] = response_200['content']
 
     return response
 
 
-def clean_value(value):
+def is_empty_response(operation: dict) -> bool:
     """
-    Cleans a value by removing extra quotes, double quotes, or triple quotes,
-    and adds double quotes if necessary.
-    """
-    if isinstance(value, str):
-        #         # Step 1: Remove leading/trailing single or double quotes
-        #         value = value.strip("'\"")
-        #
-        #         # Step 2: Replace ''' or '' with '
-        #         value = value.replace("'''", "'").replace("''", "'")
-        #
-        #         # Step 3: Replace """ or "" with "
-        #         value = value.replace('"""', '"').replace('""', '"')
-        #
-        #         Step 4: Replace '" or "' with "
-        value = value.replace('"\'', '')
-        value = value.replace('\'"', '')
-        #
-        #         # Step 5: Replace '[ or "[ with [
-        value = value.replace("'[", '[')
-        value = value.replace("\"[", '[')
-        #
-        #         # Step 6: Replace ]' or ]" with ]
-        value = value.strip().replace("]'", "]")
-        value = value.strip().replace("]\"", "]")
-    #
-    return value
+    Checks if the 200 response is an EmptyResponse or not.
+    Expected structure:
+        operation =  {
+            "responses : {
+                "200" : {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmptyResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-
-def clean_yaml_file(data):
-    """
-    Cleans the values in the YAML data.
+    :param operation: The operation dictionary.
+    :return: True if the response references EmptyResponse, otherwise False.
     """
     try:
-        # Clean the values in the YAML data
-        def clean_dict(d):
-            for key, value in d.items():
-                if isinstance(value, dict):
-                    clean_dict(value)  # Recursively clean nested dictionaries
-                elif isinstance(value, list):
-                    d[key] = [clean_value(item) for item in value]  # Clean list items
-                else:
-                    d[key] = clean_value(value)  # Clean scalar values
+        return (
+                "#/components/schemas/EmptyResponse" in
+                operation.get("responses", {})
+                .get("200", {})
+                .get("content", {})
+                .get("application/json", {})
+                .get("schema", {})
+                .get("$ref", "")
+        )
+    except AttributeError:
+        return False
 
-        if isinstance(data, dict):
-            clean_dict(data)
-        else:
-            raise ValueError("The YAML file must contain a dictionary at the root level.")
 
-        print("Cleaned YAML data.")
-        return data
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+def resolve_ref(ref, swagger_data, to_be_deleted_schemas: set[str]):
+    """Resolves a $ref in the Swagger data."""
+    ref_path = ref.split('/')[1:]  # Split and remove the initial '#'
+    ref_data = swagger_data
+    for part in ref_path:
+        ref_data = ref_data[part]
+
+    # Transform the resolved reference to only include parts in quotes
+    transformed_ref = []
+    required_fields = ref_data.get('required', [])
+
+    for key, value in ref_data.get('properties', {}).items():
+        param = {
+            'name': key,
+            'in': 'query',
+            'schema': {
+                'type': value.get('type').replace("'\"", '').replace("\"'",'')  # Add the corresponding type if present
+            }
+        }
+        if key in required_fields:
+            param['required'] = True
+        transformed_ref.append(param)
+
+    to_be_deleted_schemas.add(ref_path[-1])
+
+    return transformed_ref
+
+if __name__ == "__main__":
+    input_yaml_path = "./input/api-docs-product-env-dev.yaml"
+    output_path = "./output/test-newgateway-generator.yaml"
+    template_path = "./template.yaml"
+    frontend_url = "'http://localhost:5173'"
+    vpc_connection_id = "k7rzkd"
+    info_title = "backoffice-products-configurations-api"
+    info_description = ""
+    info_version = "1.0"
+    servers_url = "https://alrajhi.api-gateway.api.dev-arbm.com/{basePath}"
+    base_path_default = "boproduct-dev"
+    format_swagger_to_template(
+        input_yaml_path=input_yaml_path,
+        template_path=template_path,
+        output_path=output_path,
+        frontend_url=frontend_url,
+        vpc_connection_id=vpc_connection_id,
+        info_title=info_title,
+        info_description=info_description,
+        info_version=info_version,
+        servers_url=servers_url,
+        base_path_default=base_path_default
+    )
+
+
+
