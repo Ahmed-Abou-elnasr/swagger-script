@@ -135,7 +135,7 @@ class SwaggerConverterApp:
 
     def select_file(self):
         file_path = filedialog.askopenfilename(
-            filetypes=[("JSON files", "*.json"), ("YAML files", "*.yaml"), ("YML files", "*.yml")]
+            filetypes=[("YAML files", ["*.yaml", "*.yml"]), ("JSON files", "*.json")]
         )
         if file_path:
             self.file_entry.delete(0, tk.END)
