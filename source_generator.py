@@ -29,7 +29,7 @@ def format_swagger_to_template(input_yaml_path, template_path, output_path, fron
     yaml.add_representer(utils.FlowStyleList, utils.FlowStyleList.flow_style_representer)
 
 
-    process_components(swagger_data)
+    swagger_data = process_components(swagger_data)
 
 
 
@@ -171,7 +171,7 @@ def format_swagger_to_template(input_yaml_path, template_path, output_path, fron
     }
 
 
-    process_paths(swagger_data, output_data, frontend_url, vpc_connection_id)
+    output_data = process_paths(swagger_data, output_data, frontend_url, vpc_connection_id)
 
     output_data = utils.convert_str_values_to_quoted_strings(output_data)
     with open(output_path, 'w') as file:
@@ -224,11 +224,13 @@ def process_paths(swagger_data: dict, output_data: dict, frontend_url: str, vpc_
 
     output_data = delete_unused_schemas(to_be_deleted_schemas, output_data)
 
+    return output_data
+
 def process_components(swagger_data: dict) -> dict:
     add_security_schemes(swagger_data['components'])
-    swagger_data = modify_x_prefixed_fields(swagger_data)
+    modified_data = modify_x_prefixed_fields(swagger_data)
 
-    return swagger_data
+    return modified_data
 
 def add_security_schemes(components_dict: dict) -> dict:
     components_dict['securitySchemes'] = {
@@ -313,12 +315,12 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
         'parameters': [],
         'requestBody': operation.get('requestBody', {}),
         'responses': {
-            '404': create_error_response("404"),
-            '200': create_success_response(operation, is_empty_success_response),
-            '400': create_error_response("400"),
-            '401': create_error_response("401"),
-            '500': create_error_response("500"),
-            '403': create_error_response("403")
+            utils.QuotedString("404"): create_error_response("404"),
+            utils.QuotedString("200"): create_success_response(operation, is_empty_success_response),
+            utils.QuotedString("400"): create_error_response("400"),
+            utils.QuotedString("401"): create_error_response("401"),
+            utils.QuotedString("500"): create_error_response("500"),
+            utils.QuotedString("403"): create_error_response("403")
         },
         'security': [{'api_key': []}],
         'x-amazon-apigateway-request-validator': 'Validate body, query string parameters, and headers'
@@ -431,7 +433,7 @@ def create_options_method(allowed_methods: list[str], frontend_url: str):
     """Creates the OPTIONS method configuration for CORS."""
     return {
         'responses': {
-            '200': {
+            utils.QuotedString("200"): {
                 'description': '200 response',
                 'headers': {
                     'Access-Control-Allow-Origin': {'schema': {'type': 'string'}},
