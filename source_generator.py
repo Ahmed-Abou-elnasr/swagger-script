@@ -262,6 +262,8 @@ def delete_unused_schemas(to_be_deleted_schemas: set[str], swagger_data: dict):
 
         return False
 
+    print(f"Deleting {len(to_be_deleted_schemas)} marked as unused schemas(s) but will be checked first.")
+    print(to_be_deleted_schemas)
     for schema_component in to_be_deleted_schemas.copy():
         if not is_schema_used(schema_component, swagger_data):
             swagger_data["components"]["schemas"].pop(schema_component, None)
@@ -546,24 +548,35 @@ def resolve_ref(ref, swagger_data, to_be_deleted_schemas: set[str]):
     transformed_ref = []
     required_fields = ref_data.get('required', [])
 
-    for key, value in ref_data.get('properties', {}).items():
-        param = {
-            'name': key,
-            'in': 'query',
-            'schema': {
-                'type': value.get('type').replace("'\"", '').replace("\"'",'')  # Add the corresponding type if present
+    def resolve_nested_schema(prefix: str, schema: dict):
+        """ Recursively resolve nested schemas."""
+        if "$ref" in schema:
+            nested_schema_name = schema["$ref"].split("/")[-1]
+            nested_schema = swagger_data["components"]["schemas"].get(nested_schema_name, {})
+            for nested_key, nested_value in nested_schema.get("properties", {}).items():
+                resolve_nested_schema(f"{prefix}.{nested_key}", nested_value)
+            to_be_deleted_schemas.add(nested_schema_name)
+        else:
+            param = {
+                'name': prefix,
+                'in': 'query',
+                'schema': {
+                    'type': schema.get('type', 'string')  # Default type is string if missing
+                }
             }
-        }
-        if key in required_fields:
-            param['required'] = True
-        transformed_ref.append(param)
+            if prefix.split(".")[-1] in required_fields:
+                param['required'] = True
+            transformed_ref.append(param)
+
+    for key, value in ref_data.get('properties', {}).items():
+        resolve_nested_schema(key, value)
 
     to_be_deleted_schemas.add(ref_path[-1])
 
     return transformed_ref
 
 if __name__ == "__main__":
-    input_yaml_path = "./input/api-docs-product-env-dev.yaml"
+    input_yaml_path = "./input/product-env-dev-swagger.yaml"
     output_path = "./output/test-newgateway-generator.yaml"
     template_path = "./template.yaml"
     frontend_url = "'http://localhost:5173'"
