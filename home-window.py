@@ -82,24 +82,26 @@ class SwaggerConverterApp:
         self.gateway_frame = tk.Frame(self.main_frame, bg='#f4f6f9')
         self.gateway_frame.pack(fill=tk.X, pady=10)
 
+        # Label, attribute_normalized_name, is_mandatory flag
         self.gateway_fields = [
-            ("Frontend URL", "frontend_url"),
-            ("VPC Connection ID", "vpc_connection_id"),
-            ("Info Title", "info_title"),
-            ("Info Description", "info_description"),
-            ("Info Version", "info_version"),
-            ("Servers URL", "servers_url"),
-            ("Base Path Default", "base_path_default")
+            ("Frontend URL", "frontend_url", True),
+            ("VPC Connection ID", "vpc_connection_id", True),
+            ("Info Title", "info_title", True),
+            ("Info Description", "info_description", False),
+            ("Info Version", "info_version", True),
+            ("Servers URL", "servers_url", True),
+            ("Base Path Default", "base_path_default", True)
         ]
 
         self.gateway_entries = {}
-        for label, attr in self.gateway_fields:
+
+        for label, attr, is_mandatory in self.gateway_fields:
             field_frame = tk.Frame(self.gateway_frame, bg='#f4f6f9')
             field_frame.pack(fill=tk.X, pady=5)
 
             tk.Label(
                 field_frame,
-                text=label,
+                text=label + "*" if is_mandatory else label,
                 font=('Segoe UI', 10),
                 bg='#f4f6f9',
                 fg='#34495e'
@@ -171,7 +173,7 @@ class SwaggerConverterApp:
             if option_index in [1, 2]:  # JSON to YAML or YAML to JSON
                 output_file = filedialog.asksaveasfilename(
                     defaultextension=".yml" if option_index == 1 else ".json",
-                    filetypes=[("YAML files", "*.yml") if option_index == 1 else ("JSON files", "*.json")]
+                    filetypes=[("YAML files", "*.yml")] if option_index == 1 else [("JSON files", "*.json")]
                 )
                 if not output_file:
                     return
@@ -182,14 +184,16 @@ class SwaggerConverterApp:
                     self._convert_yaml_to_json(file_path, output_file)
 
             elif option_index in [3, 4, 5]:  # OpenAPI or Gateway or Both
-                # Validate gateway fields for appropriate options
+                # For gateway generation (options 4 and 5), validate mandatory fields
+                # Removed "info_description" from the list as it is optional.
                 gateway_options = [4, 5]
                 if option_index in gateway_options:
                     # Check if gateway fields are filled
-                    if not all(self.gateway_entries[field].get() for field in
-                               ['frontend_url', 'vpc_connection_id', 'info_title',
-                                'info_description', 'info_version', 'servers_url', 'base_path_default']):
-                        messagebox.showerror("Error", "Please fill in all gateway fields")
+                    if not all(
+                            self.gateway_entries[field].get() for field in
+                            [attribute_name for _,attribute_name, is_mandatory in self.gateway_fields if is_mandatory]
+                            ):
+                        messagebox.showerror("Error", "Please fill in all mandatory gateway fields")
                         return
 
                 # OpenAPI generation
