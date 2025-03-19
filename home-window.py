@@ -210,7 +210,6 @@ class SwaggerConverterApp:
                     if gateway_file:
                         source_generator.format_swagger_to_template(
                             file_path,
-                            'template.yaml',
                             gateway_file,
                             self.gateway_entries['frontend_url'].get(),
                             self.gateway_entries['vpc_connection_id'].get(),

@@ -4,13 +4,12 @@ import yaml
 import utils as utils
 
 
-def format_swagger_to_template(input_yaml_path, template_path, output_path, frontend_url, vpc_connection_id, info_title,
+def format_swagger_to_template(input_yaml_path, output_path, frontend_url, vpc_connection_id, info_title,
                                info_description, info_version, servers_url, base_path_default):
     """
     Transforms a Swagger YAML file into AWS API Gateway format using a template.
     Args:
         input_yaml_path (str): Path to the input Swagger YAML file
-        template_path (str): Path to the template YAML file
         output_path (str): Path where the output YAML file will be saved
         frontend_url (str): Frontend URL to be used in CORS configurations
         vpc_connection_id (str): VPC Connection ID for API Gateway integration
@@ -580,7 +579,6 @@ def resolve_ref(ref, swagger_data, to_be_deleted_schemas: set[str]):
 if __name__ == "__main__":
     input_yaml_path = "./input/product-env-dev-swagger.yaml"
     output_path = "./output/test-newgateway-generator.yaml"
-    template_path = "./template.yaml"
     frontend_url = "'http://localhost:5173'"
     vpc_connection_id = "k7rzkd"
     info_title = "backoffice-products-configurations-api"
@@ -590,7 +588,6 @@ if __name__ == "__main__":
     base_path_default = "boproduct-dev"
     format_swagger_to_template(
         input_yaml_path=input_yaml_path,
-        template_path=template_path,
         output_path=output_path,
         frontend_url=frontend_url,
         vpc_connection_id=vpc_connection_id,
