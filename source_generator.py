@@ -29,9 +29,76 @@ def format_swagger_to_template(input_yaml_path, output_path, frontend_url, vpc_c
 
 
     swagger_data = process_components(swagger_data)
+    output_data = generate_output_data_template(swagger_data, info_title, info_description, info_version, servers_url, base_path_default)
+    output_data = process_paths(swagger_data, output_data, frontend_url, vpc_connection_id)
+
+    output_data = utils.convert_str_values_to_quoted_strings(output_data)
+    with open(output_path, 'w') as file:
+        yaml.dump(output_data, file, sort_keys=False, Dumper=utils.ListIndentDumper)
+
+    print(f"Output YAML file saved to: {output_path}")
+
+def process_components(swagger_data: dict) -> dict:
+    add_security_schemes(swagger_data['components'])
+    modified_data = modify_schemas_fields(swagger_data)
+
+    return modified_data
+
+def add_security_schemes(components_dict: dict) -> dict:
+    components_dict['securitySchemes'] = {
+        'api_key': {
+            'type': 'apiKey',
+            'name': 'x-api-key',
+            'in': 'header'
+        }
+    }
+
+    return components_dict
 
 
+def modify_schemas_fields(data):
+    """
+    Modify the fields of the schemas to match the required fields format by doing a few modifications on them like:
+        - Remove discarded fields
+        - Modify x-prefixed fields keys
+        - Change x-allowedStrings to enum
+    """
+    remove_x_prefix_from_fields = {"x-minLength", "x-maxLength", "x-minimum", "x-maximum", "x-min", "x-max"}
+    discarded_fields = {"x-message", "example"}
 
+    if isinstance(data, dict):
+        new_data = {}
+        for k, v in data.items():
+            if k in discarded_fields:
+                continue
+            if k.startswith("x-"):
+                if k in remove_x_prefix_from_fields:
+                    new_key = k[2:]  # Remove "x-" prefix
+                    if new_key in ["min", "max"]:
+                        new_key += "imum" # change "min" to "minimum" and "max" to "maximum"
+                    new_data[new_key] = v
+                elif k == "x-allowedStrings" or k == "enum": # modify to flow style list
+                    new_data["enum"] = v if not isinstance(v, list) else utils.FlowStyleList(v)
+                elif k not in discarded_fields:
+                    new_data[k] = modify_schemas_fields(v)
+            elif k not in discarded_fields:
+                new_data[k] = modify_schemas_fields(v)
+
+        return new_data
+    elif isinstance(data, list):
+        return [modify_schemas_fields(v) for v in data]
+    else:
+        return data
+
+
+def generate_output_data_template(
+        swagger_data: dict,
+        info_title: str,
+        info_description: str,
+        info_version: str,
+        servers_url: str,
+        base_path_default: str
+) -> dict:
     output_data = {
         'openapi': swagger_data.get('openapi', '3.0.1'),
         'info': {
@@ -169,14 +236,7 @@ def format_swagger_to_template(input_yaml_path, output_path, frontend_url, vpc_c
         }
     }
 
-
-    output_data = process_paths(swagger_data, output_data, frontend_url, vpc_connection_id)
-
-    output_data = utils.convert_str_values_to_quoted_strings(output_data)
-    with open(output_path, 'w') as file:
-        yaml.dump(output_data, file, sort_keys=False, Dumper=utils.ListIndentDumper)
-
-    print(f"Output YAML file saved to: {output_path}")
+    return output_data
 
 def process_paths(swagger_data: dict, output_data: dict, frontend_url: str, vpc_connection_id: str):
     to_be_deleted_schemas = set()
@@ -225,84 +285,6 @@ def process_paths(swagger_data: dict, output_data: dict, frontend_url: str, vpc_
 
     return output_data
 
-def process_components(swagger_data: dict) -> dict:
-    add_security_schemes(swagger_data['components'])
-    modified_data = modify_x_prefixed_fields(swagger_data)
-
-    return modified_data
-
-def add_security_schemes(components_dict: dict) -> dict:
-    components_dict['securitySchemes'] = {
-        'api_key': {
-            'type': 'apiKey',
-            'name': 'x-api-key',
-            'in': 'header'
-        }
-    }
-
-    return components_dict
-
-
-def delete_unused_schemas(to_be_deleted_schemas: set[str], swagger_data: dict):
-    def is_schema_used(schema_name: str, data: dict) -> bool:
-        """
-        Recursively search the dictionary for references to the given schema.
-        """
-        ref_string = f"#/components/schemas/{schema_name}"
-
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if isinstance(value, str) and ref_string in value:
-                    return True
-                if isinstance(value, (dict, list)) and is_schema_used(schema_name, value):
-                    return True
-        elif isinstance(data, list):
-            for item in data:
-                if is_schema_used(schema_name, item):
-                    return True
-
-        return False
-
-    print(f"Deleting {len(to_be_deleted_schemas)} marked as unused schemas(s) but will be checked first.")
-    print(to_be_deleted_schemas)
-    for schema_component in to_be_deleted_schemas.copy():
-        if not is_schema_used(schema_component, swagger_data):
-            swagger_data["components"]["schemas"].pop(schema_component, None)
-            to_be_deleted_schemas.remove(schema_component)
-
-    if len(to_be_deleted_schemas) > 0:
-        print(f"There is {len(to_be_deleted_schemas)} detected as unused schema(s) that haven't been deleted")
-        print(to_be_deleted_schemas)
-    return swagger_data
-
-
-def modify_x_prefixed_fields(data):
-    remove_x_prefix_from_fields = {"x-minLength", "x-maxLength", "x-minimum", "x-maximum", "x-min", "x-max"}
-    discarded_fields = {"x-message", "example"}
-
-    if isinstance(data, dict):
-        new_data = {}
-        for k, v in data.items():
-            if k in discarded_fields:
-                continue
-            if k.startswith("x-"):
-                if k in remove_x_prefix_from_fields:
-                    new_key = k[2:]  # Remove "x-" prefix
-                    if new_key in ["min", "max"]:
-                        new_key += "imum" # change "min" to "minimum" and "max" to "maximum"
-                    new_data[new_key] = v
-                elif k == "x-allowedStrings" or k == "enum": # modify to flow style list
-                    new_data["enum"] = v if not isinstance(v, list) else utils.FlowStyleList(v)
-                elif k not in discarded_fields:
-                    new_data[k] = modify_x_prefixed_fields(v)
-            elif k not in discarded_fields:
-                new_data[k] = modify_x_prefixed_fields(v)
-
-        return new_data
-    elif isinstance(data, list):
-        return [modify_x_prefixed_fields(v) for v in data]
-    else:
-        return data
 
 
 def create_method_config(path, operation, method, frontend_url, vpc_connection_id, swagger_data,
@@ -539,7 +521,7 @@ def is_empty_response(operation: dict) -> bool:
 
 
 def resolve_ref(ref, swagger_data, to_be_deleted_schemas: set[str]):
-    """Resolves a $ref in the Swagger data."""
+    """Resolves a $ref in the Swagger data and convert query resource objects to query params."""
     ref_path = ref.split('/')[1:]  # Split and remove the initial '#'
     ref_data = swagger_data
     for part in ref_path:
@@ -575,6 +557,40 @@ def resolve_ref(ref, swagger_data, to_be_deleted_schemas: set[str]):
     to_be_deleted_schemas.add(ref_path[-1])
 
     return transformed_ref
+
+
+def delete_unused_schemas(to_be_deleted_schemas: set[str], swagger_data: dict):
+    def is_schema_used(schema_name: str, data: dict) -> bool:
+        """
+        Recursively search the dictionary for references to the given schema.
+        """
+        ref_string = f"#/components/schemas/{schema_name}"
+
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, str) and ref_string in value:
+                    return True
+                if isinstance(value, (dict, list)) and is_schema_used(schema_name, value):
+                    return True
+        elif isinstance(data, list):
+            for item in data:
+                if is_schema_used(schema_name, item):
+                    return True
+
+        return False
+
+    print(f"Deleting {len(to_be_deleted_schemas)} marked as unused schemas(s) but will be checked first.")
+    print(to_be_deleted_schemas)
+    for schema_component in to_be_deleted_schemas.copy():
+        if not is_schema_used(schema_component, swagger_data):
+            swagger_data["components"]["schemas"].pop(schema_component, None)
+            to_be_deleted_schemas.remove(schema_component)
+
+    if len(to_be_deleted_schemas) > 0:
+        print(f"There is {len(to_be_deleted_schemas)} detected as unused schema(s) that haven't been deleted")
+        print(to_be_deleted_schemas)
+    return swagger_data
+
 
 if __name__ == "__main__":
     input_yaml_path = "./input/product-env-dev-swagger.yaml"
