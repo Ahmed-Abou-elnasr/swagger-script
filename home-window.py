@@ -13,11 +13,12 @@ from merging_apis import load_yaml, save_yaml, merge_yaml  # Import the yaml_mer
 class SwaggerConverterApp:
     def __init__(self, root):
         self.root = root
+        self.script_version = 1.0
 
         # Use ttkbootstrap for a modern look
         style = Style(theme='flatly')
         root.title("Swagger Converter")
-        root.geometry("700x650")
+        root.geometry("700x700")
         root.configure(bg='#ffffff')
 
         # Main container with soft padding
@@ -27,7 +28,7 @@ class SwaggerConverterApp:
         # Header
         self.header_label = tk.Label(
             self.main_frame,
-            text="Swagger Converter",
+            text="Swagger Converter v" + str(self.script_version),
             font=('Segoe UI', 20, 'bold'),
             bg='#f4f6f9',
             fg='#2c3e50'
@@ -112,6 +113,26 @@ class SwaggerConverterApp:
 
             self.gateway_entries[attr] = entry
 
+        # Buttons to load and save gateway fields
+        self.gateway_buttons_frame = tk.Frame(self.gateway_frame, bg='#f4f6f9')
+        self.gateway_buttons_frame.pack(fill=tk.X, pady=5)
+
+        self.load_gateway_button = ttk.Button(
+            self.gateway_buttons_frame,
+            text="Load Gateway Fields",
+            command=self.load_gateway_fields_data,
+            style='secondary.TButton'
+        )
+        self.load_gateway_button.pack(side=tk.LEFT, padx=5)
+
+        self.save_gateway_button = ttk.Button(
+            self.gateway_buttons_frame,
+            text="Save Gateway Fields",
+            command=self.save_gateway_fields_data,
+            style='secondary.TButton'
+        )
+        self.save_gateway_button.pack(side=tk.LEFT, padx=5)
+
         # Progress Bar
         self.progress_var = tk.DoubleVar()
         self.progress_bar = ttk.Progressbar(
@@ -150,6 +171,57 @@ class SwaggerConverterApp:
         state = 'normal' if selected_option in gateway_options else 'disabled'
         for entry in self.gateway_entries.values():
             entry.config(state=state)
+
+    def load_gateway_fields_data(self):
+        """Load gateway fields from a JSON file."""
+        file_path = filedialog.askopenfilename(
+            filetypes=[("JSON files", "*.json")],
+            title="Load Gateway Fields"
+        )
+        if file_path:
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                saved_data_script_version = data.get("version", 1.0) # to be used in the future for compatibility
+                if saved_data_script_version != self.script_version:
+                    raise Exception("Unsupported version of file saving/loading")
+                fields_data = data.get("data", {})
+                gateway_fields_data = fields_data.get("gatewayFields", {})
+                # Update each gateway entry. Temporarily enable if necessary.
+                for key, entry in self.gateway_entries.items():
+                    # If the entry is disabled, temporarily enable it to update the value.
+                    current_state = entry.cget('state')
+                    if current_state == 'disabled':
+                        entry.config(state='normal')
+                    entry.delete(0, tk.END)
+                    entry.insert(0, gateway_fields_data.get(key, ""))
+                    # Restore the state based on conversion option.
+                self.toggle_gateway_fields()
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to load gateway fields: {e}")
+
+    def save_gateway_fields_data(self):
+        """Save current gateway fields to a JSON file."""
+        script_version = 1.0 # To be changed if the structure of loading and saving change to allow compatibility
+        data = {
+            "version": script_version,
+            "data": {
+                "gatewayFields": {key: entry.get() for key, entry in self.gateway_entries.items()}
+            }
+        }
+
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json")],
+            title="Save Gateway Fields"
+        )
+        if file_path:
+            try:
+                with open(file_path, 'w') as f:
+                    json.dump(data, f, indent=4)
+                messagebox.showinfo("Success", "Gateway fields saved successfully!")
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to save gateway fields: {e}")
 
     def run_conversion(self):
         # Validate inputs
