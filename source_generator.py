@@ -320,6 +320,7 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
     method_config['parameters'].extend(standard_headers)
 
     path_parameters = []
+    query_parameters = []
     # Add any additional parameters from the operation
     if 'parameters' in operation:
         for param in operation['parameters']:
@@ -328,6 +329,9 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
                     ref = param['schema']['$ref']
                     resolved_params = resolve_ref(ref, swagger_data, to_be_deleted_schemas)
                     method_config['parameters'].extend(resolved_params)
+                    query_parameters.extend(resolved_params)
+                else:
+                    query_parameters.append(param)
             if param['in'] == 'path':
                 path_parameters.append(param)
 
@@ -341,12 +345,14 @@ def create_method_config(path, operation, method, frontend_url, vpc_connection_i
         frontend_url,
         vpc_connection_id,
         path_parameters,
+        query_parameters,
         is_empty_success_response
     )
     return method_config
 
 
-def create_integration_config(path, method, frontend_url, vpc_connection_id, parameters, is_empty_success_response: bool):
+def create_integration_config(path, method, frontend_url, vpc_connection_id,
+                              path_parameters, query_parameters, is_empty_success_response: bool):
     """Creates the API Gateway integration configuration."""
     integration = {
         'connectionId': vpc_connection_id,
@@ -399,13 +405,12 @@ def create_integration_config(path, method, frontend_url, vpc_connection_id, par
         }
 
     # Add query string and path parameter mappings
-    for param in parameters:
-        if param['in'] == 'query':
-            integration['requestParameters'][
-                f"integration.request.querystring.{param['name']}"] = f"method.request.querystring.{param['name']}"
-        elif param['in'] == 'path':
-            integration['requestParameters'][
-                f"integration.request.path.{param['name']}"] = f"method.request.path.{param['name']}"
+    for param in path_parameters:
+        integration['requestParameters'][f"integration.request.path.{param['name']}"]\
+            = f"method.request.path.{param['name']}"
+    for param in query_parameters:
+        integration['requestParameters'][f"integration.request.querystring.{param['name']}"]\
+            = f"method.request.querystring.{param['name']}"
 
     return integration
 
